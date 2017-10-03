@@ -52,6 +52,18 @@ int main(void)
 	gpio.GPIO_Mode = GPIO_Mode_IN_FLOATING;
 	GPIO_Init(GPIOA, &gpio);
 
+	//RIGHT WHEEL: [C5+C6] ON -> Forward, [C8+C9] ON -> Backward
+	GPIO_StructInit(&gpio);
+	gpio.GPIO_Pin = GPIO_Pin_5 | GPIO_Pin_6 | GPIO_Pin_8 | GPIO_Pin_9;
+	gpio.GPIO_Mode = GPIO_Mode_Out_PP;
+	GPIO_Init(GPIOC, &gpio);
+
+	//LEFT WHEEL: [C10+C11] ON -> Forward, [C12+C13] ON -> Backward
+	GPIO_StructInit(&gpio);
+	gpio.GPIO_Pin = GPIO_Pin_10 | GPIO_Pin_11 | GPIO_Pin_12 | GPIO_Pin_13;
+	gpio.GPIO_Mode = GPIO_Mode_Out_PP;
+	GPIO_Init(GPIOC, &gpio);
+
 	USART_StructInit(&uart);
 	uart.USART_BaudRate = 115200;
 	USART_Init(USART2, &uart);
@@ -83,17 +95,7 @@ int main(void)
 
 	TIM_SetCompare1(TIM4, 700);
 
-	//RIGHT WHEEL: [C5+C6] ON -> Forward, [C8+C9] ON -> Backward
-	GPIO_StructInit(&gpio);
-	gpio.GPIO_Pin = GPIO_Pin_5 | GPIO_Pin_6 | GPIO_Pin_8 | GPIO_Pin_9;
-	gpio.GPIO_Mode = GPIO_Mode_Out_PP;
-	GPIO_Init(GPIOC, &gpio);
 
-	//LEFT WHEEL: [C10+C11] ON -> Forward, [C12+C13] ON -> Backward
-	GPIO_StructInit(&gpio);
-	gpio.GPIO_Pin = GPIO_Pin_10 | GPIO_Pin_11 | GPIO_Pin_12 | GPIO_Pin_13;
-	gpio.GPIO_Mode = GPIO_Mode_Out_PP;
-	GPIO_Init(GPIOC, &gpio);
 
 
     while(1)
